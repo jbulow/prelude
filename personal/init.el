@@ -122,8 +122,9 @@
 
 ;;
 ;; Other variables
-;;
+;; 
 (setq mac-option-modifier 'none)
+(setq ns-command-modifier 'meta)
 (setq inhibit-startup-message t)
 (setq require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -762,3 +763,9 @@
   (setq c-basic-offset 2))
 (add-hook 'c-mode-hook 'my-c-mode-hook)
 (add-hook 'c++-mode-hook 'my-c-mode-hook)
+
+(defun disable-smartparens ()
+  (smartparens-mode 0)
+  )
+
+(add-hook 'c-mode-common-hook 'disable-smartparens)
