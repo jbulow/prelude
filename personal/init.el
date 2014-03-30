@@ -136,8 +136,9 @@
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq emerge-diff-options "--ignore-all-space")
+(setq preview-auto-cache-preamble t)
 
-                                        ; Moving cursor down at bottom scrolls only a single line, not half page
+;; Moving cursor down at bottom scrolls only a single line, not half page
 (setq scroll-step 1)
 (setq scroll-conservatively 5)
 
@@ -769,3 +770,7 @@
   )
 
 (add-hook 'c-mode-common-hook 'disable-smartparens)
+
+(eval-after-load "preview"
+  '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t)
+  )
