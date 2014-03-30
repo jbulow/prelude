@@ -741,7 +741,7 @@
 ;;     '(setq mumamo-per-buffer-local-vars
 ;;            (delq 'buffer-file-name mumamo-per-buffer-local-vars))))
 
-
+;; gdb mode does not work well with large c++ executables withour this
 (setq gdb-create-source-file-list nil)
 
 ;; Consider
