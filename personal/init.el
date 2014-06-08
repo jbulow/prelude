@@ -585,6 +585,7 @@
                     :foreground "white"
                     :weight 'bold)
 ;; (global-whitespace-mode 1)
+(global-flycheck-mode nil)
 
 
 
