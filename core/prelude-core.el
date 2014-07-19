@@ -158,23 +158,6 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key [remap move-beginning-of-line]
                 'prelude-move-beginning-of-line)
 
-(defun prelude-indent-buffer ()
-  "Indent the currently visited buffer."
-  (interactive)
-  (indent-region (point-min) (point-max)))
-
-(defun prelude-indent-buffer-or-region ()
-  "Indent a region if selected, otherwise the whole buffer."
-  (interactive)
-  (save-excursion
-    (if (region-active-p)
-        (progn
-          (indent-region (region-beginning) (region-end))
-          (message "Indented selected region."))
-      (progn
-        (prelude-indent-buffer)
-        (message "Indented buffer.")))))
-
 (defun prelude-indent-defun ()
   "Indent the current defun."
   (interactive)
@@ -286,43 +269,12 @@ there's a region, all lines that region covers will be duplicated."
     (cond ((search-forward "<?xml" nil t) (nxml-mode))
           ((search-forward "<html" nil t) (html-mode)))))
 
-(defun prelude-untabify-buffer ()
-  "Remove all tabs from the current buffer."
-  (interactive)
-  (untabify (point-min) (point-max)))
-
-(defun prelude-untabify-buffer-or-region ()
-  "Untabify a region if selected, otherwise the whole buffer."
-  (interactive)
-  (save-excursion
-    (if (region-active-p)
-        (progn
-          (untabify (region-beginning) (region-end))
-          (message "Untabify selected region."))
-      (progn
-        (prelude-untabify-buffer)
-        (message "Untabify buffer.")))))
-
-(defun prelude-cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer."
-  (interactive)
-  (prelude-untabify-buffer)
-  (prelude-indent-buffer)
-  (whitespace-cleanup))
-
 (defun prelude-cleanup-buffer-or-region ()
   "Cleanup a region if selected, otherwise the whole buffer."
   (interactive)
-  (save-excursion
-    (if (region-active-p)
-        (progn
-          (untabify (region-beginning) (region-end))
-          (indent-region (region-beginning) (region-end))
-          (message "Cleanup selected region."))
-      (progn
-        (prelude-untabify-buffer)
-        (prelude-indent-buffer)
-        (message "Cleanup buffer."))))
+  (call-interactively 'untabify)
+  (unless (member major-mode prelude-indent-sensitive-modes)
+    (call-interactively 'indent-region))
   (whitespace-cleanup))
 
 (defun prelude-eval-and-replace ()
@@ -419,10 +371,9 @@ Doesn't mess with special buffers."
 (defun prelude-create-scratch-buffer ()
   "Create a new scratch buffer."
   (interactive)
-  (progn
-    (switch-to-buffer
-     (get-buffer-create (generate-new-buffer-name "*scratch*")))
-    (emacs-lisp-mode)))
+  (let ((buf (get-buffer-create (generate-new-buffer-name "*scratch*"))))
+    (set-buffer-major-mode buf)
+    (switch-to-buffer buf)))
 
 (defvar prelude-tips
   '("Press <C-c o> to open a file with external program."
@@ -440,7 +391,7 @@ Doesn't mess with special buffers."
     "Press <C-x g> or <s-m> to run magit-status."
     "Press <C-c D> to delete the current file and buffer."
     "Press <C-c s> to swap two windows."
-    "Press <S-RET> or <M-o> to open a new beneath the current one."
+    "Press <S-RET> or <M-o> to open a line beneath the current one."
     "Press <s-o> to open a line above the current one."
     "Press <C-c C-z> in a Elisp buffer to launch an interactive Elisp shell."
     "Press <C-Backspace> to kill a line backwards."
@@ -468,12 +419,6 @@ Doesn't mess with special buffers."
     (add-hook 'after-init-hook func)
     (when after-init-time
       (eval form))))
-
-(defun prelude-exchange-point-and-mark ()
-  "Identical to `exchange-point-and-mark' but will not activate the region."
-  (interactive)
-  (exchange-point-and-mark)
-  (deactivate-mark nil))
 
 (require 'epl)
 

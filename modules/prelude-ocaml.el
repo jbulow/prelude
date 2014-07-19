@@ -1,9 +1,9 @@
-;;; prelude-css.el --- Emacs Prelude: css support
+;;; prelude-ocaml.el --- Emacs Prelude: decent Perl coding settings.
 ;;
-;; Copyright © 2011-2013 Bozhidar Batsov
+;; Copyright © 2014 Geoff Shannon
 ;;
-;; Author: Bozhidar Batsov <bozhidar@batsov.com>
-;; URL: http://www.batsov.com/emacs-prelude
+;; Author: Geoff Shannon <geoffpshannon@gmail.com>
+;; URL: https://github.com/bbatsov/prelude
 ;; Version: 1.0.0
 ;; Keywords: convenience
 
@@ -11,7 +11,7 @@
 
 ;;; Commentary:
 
-;; Some basic configuration for css-mode.
+;; tuareg is the preferred ocaml mode for Emacs
 
 ;;; License:
 
@@ -32,19 +32,27 @@
 
 ;;; Code:
 
-(eval-after-load 'css-mode
-  '(progn
-     (prelude-require-packages '(rainbow-mode))
+(prelude-require-packages '(tuareg utop merlin))
 
-     (defun prelude-css-mode-defaults ()
-       (setq css-indent-offset 2)
-       (rainbow-mode +1)
-       (run-hooks 'prelude-prog-mode-hook))
+(require 'tuareg)
+(require 'utop)
+(require 'merlin)
 
-     (setq prelude-css-mode-hook 'prelude-css-mode-defaults)
+(add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
 
-     (add-hook 'css-mode-hook (lambda ()
-                                (run-hooks 'prelude-css-mode-hook)))))
+(setq auto-mode-alist
+      (append '(("\\.ml[ily]?\\'" . tuareg-mode)
+                ("\\.topml\\'" . tuareg-mode))
+              auto-mode-alist))
 
-(provide 'prelude-css)
-;;; prelude-css.el ends here
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+
+(setq utop-command "opam config exec \"utop -emacs\""
+      merlin-error-after-save nil)
+
+(provide 'prelude-ocaml)
+
+;;; prelude-ocaml.el ends here

@@ -131,9 +131,7 @@ ln -s path/to/local/repo ~/.emacs.d
 cd ~/.emacs.d
 ```
 
-You'd do well to replace `~/.emacs.d` with the value of
-`user-emacs-directory` for your OS. You can check the value by doing
-`C-h v user-emacs-directory` inside Emacs.
+If you are using Windows, you should check what Emacs thinks the `~` directory is by running Emacs and typing `C-x d ~/<RET>`, and then adjust the command appropriately.
 
 ## Updating Prelude
 
@@ -361,14 +359,8 @@ Keybinding         | Description
 <kbd>C-c p z</kbd> | Adds the currently visited to the cache.
 <kbd>C-c p s</kbd> | Display a list of known projects you can switch to.
 
-Prelude adds some extra keybindings:
-
-Keybinding         | Command
--------------------|------------------------------------------------------------
-<kbd>Super-f</kbd> | Find file in project
-<kbd>Super-d</kbd> | Find directory in project
-<kbd>Super-g</kbd> | Run grep on project
-<kbd>Super-p</kbd> | Switch projects
+Prelude adds an extra keymap prefix `S-p` (`S` stands for
+`Super`), so you can use `S-p` instead of `C-c p`.
 
 If you ever forget any of Projectile's keybindings just do a:
 
