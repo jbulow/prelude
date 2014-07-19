@@ -189,10 +189,10 @@
 (setq uniquify-buffer-name-style 'reverse)
 
 ;;; yasnippet
-(require 'yasnippet)
-;;(setq yas/trigger-key (kbd "C-c <kp-multiply>"))
-(yas/initialize)
-(yas/load-directory (concat emacs-root "yasnippet-0.6.1c/snippets"))
+;; (require 'yasnippet)
+;;;; (setq yas/trigger-key (kbd "C-c <kp-multiply>"))
+;; (yas/initialize)
+;; (yas/load-directory (concat emacs-root "yasnippet-0.6.1c/snippets"))
 
 (require 'dropdown-list)
 (setq yas/prompt-functions
