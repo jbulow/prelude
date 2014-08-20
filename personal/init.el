@@ -768,7 +768,7 @@
 ;;
 ;; 
 
-(setq python-shell-interpreter "python3.2")
+(setq python-shell-interpreter "python3.3")
 
 (defun my-c-mode-hook ()
   (setq c-basic-offset 2))
@@ -949,3 +949,15 @@
 (add-hook 'tuareg-mode-hook
           ;; Turn on auto-fill minor mode.
           (lambda () (auto-fill-mode 1)))
+
+(remove-hook 'prog-mode 'flycheck-mode)
+
+(require 'package)
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/") t)
+
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+
+
+(setq flycheck-disable-checkers '(make))
