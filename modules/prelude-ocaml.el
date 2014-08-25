@@ -52,11 +52,11 @@
                                   'utop))))
 
 ;; Setup merlin completions company is used by default in prelude
-(add-to-list 'company-backends 'merlin-company-backend)
+;; (add-to-list 'company-backends 'merlin-company-backend)
 
 ;; But merlin also offers support for autocomplete, uncomment this next line
 ;; to activate it.
-;; (setq merlin-use-auto-complete-mode t)
+(setq merlin-use-auto-complete-mode t)
 
 (setq utop-command "opam config exec \"utop -emacs\""
       merlin-error-after-save nil)
