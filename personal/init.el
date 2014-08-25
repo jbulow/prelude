@@ -951,4 +951,5 @@
 ;;           ;; Turn on auto-fill minor mode.
 ;;           (lambda () (auto-fill-mode 1)))
 
+;; Hardcode shell to /bin/sh. Fixes problem with rgrep etc. when fish is used as shell.
 (setq shell-file-name "/bin/sh")
