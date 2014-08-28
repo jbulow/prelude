@@ -266,8 +266,11 @@ there's a region, all lines that region covers will be duplicated."
          (url (read-from-minibuffer "URL: " default)))
     (switch-to-buffer (url-retrieve-synchronously url))
     (rename-buffer url t)
-    (cond ((search-forward "<?xml" nil t) (nxml-mode))
-          ((search-forward "<html" nil t) (html-mode)))))
+    (goto-char (point-min))
+    (re-search-forward "^$")
+    (delete-region (point-min) (point))
+    (delete-blank-lines)
+    (set-auto-mode)))
 
 (defun prelude-cleanup-buffer-or-region ()
   "Cleanup a region if selected, otherwise the whole buffer."
@@ -303,11 +306,10 @@ buffer is not visiting a file."
 
 (defadvice ido-find-file (after find-file-sudo activate)
   "Find file as root if necessary."
-  (unless (or (equal major-mode 'dired-mode)
-              (and (buffer-file-name)
-                   (not (file-exists-p (file-name-directory (buffer-file-name)))))
-              (and (buffer-file-name)
-                   (file-writable-p buffer-file-name)))
+  (unless (or (tramp-tramp-file-p buffer-file-name)
+              (equal major-mode 'dired-mode)
+              (not (file-exists-p (file-name-directory buffer-file-name)))
+              (file-writable-p buffer-file-name))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (defun prelude-start-or-switch-to (function buffer-name)
@@ -371,16 +373,16 @@ Doesn't mess with special buffers."
 (defun prelude-create-scratch-buffer ()
   "Create a new scratch buffer."
   (interactive)
-  (let ((buf (get-buffer-create (generate-new-buffer-name "*scratch*"))))
-    (set-buffer-major-mode buf)
-    (switch-to-buffer buf)))
+  (let ((buf (generate-new-buffer "*scratch*")))
+    (switch-to-buffer buf)
+    (funcall initial-major-mode)))
 
 (defvar prelude-tips
   '("Press <C-c o> to open a file with external program."
-    "Press <C-c p f> or <s-f> to navigate a project's files with ido."
-    "Press <C-c p g> or <s-g> to run grep on a project."
-    "Press <C-c p s> or <s-p> to switch between projects."
-    "Press <C-=> or <s-x> to expand the selected region."
+    "Press <C-c p f> to navigate a project's files with ido."
+    "Press <C-c p s g> to run grep on a project."
+    "Press <C-c p p> to switch between projects."
+    "Press <C-=> to expand the selected region."
     "Press <C-c g> to search in Google."
     "Press <C-c G> to search in GitHub."
     "Press <C-c y> to search in YouTube."
@@ -388,7 +390,7 @@ Doesn't mess with special buffers."
     "Press <C-c r> to rename the current buffer and the file it's visiting if any."
     "Press <C-c t> to open a terminal in Emacs."
     "Press <C-c k> to kill all the buffers, but the active one."
-    "Press <C-x g> or <s-m> to run magit-status."
+    "Press <C-x g> to run magit-status."
     "Press <C-c D> to delete the current file and buffer."
     "Press <C-c s> to swap two windows."
     "Press <S-RET> or <M-o> to open a line beneath the current one."
