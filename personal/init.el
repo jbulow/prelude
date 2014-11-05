@@ -967,7 +967,6 @@
 ;;           ;; Turn on auto-fill minor mode.
 ;;           (lambda () (auto-fill-mode 1)))
 
-<<<<<<< HEAD
 (add-hook 'tuareg-mode-hook
           ;; Turn on auto-fill minor mode.
           (lambda () (auto-fill-mode 1)))
@@ -983,8 +982,6 @@
 
 
 (setq flycheck-disable-checkers '(make))
-=======
 
->>>>>>> ac59c730e34ae48babd625345d5c75b3cac6daf1
 ;; Hardcode shell to /bin/sh. Fixes problem with rgrep etc. when fish is used as shell.
 (setq shell-file-name "/bin/sh")
