@@ -791,7 +791,10 @@
              '("org" . "http://orgmode.org/elpa/") t)
 
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.org/packages/"))
+
+;;(add-to-list 'package-archives
+;;             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 
 
 (setq flycheck-disable-checkers '(make))
@@ -966,3 +969,5 @@
 
 ;; Hardcode shell to /bin/sh. Fixes problem with rgrep etc. when fish is used as shell.
 (setq shell-file-name "/bin/sh")
+
+(sml/setup)
