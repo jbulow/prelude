@@ -784,6 +784,10 @@
   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t)
   )
 
+;; (autoload 'octave-mode "octave-mod" nil t)
+;; (setq auto-mode-alist
+;;       (cons '("\\.m$" . octave-mode) auto-mode-alist))
+
 (remove-hook 'prog-mode 'flycheck-mode)
 
 (require 'package)
@@ -966,6 +970,21 @@
 ;;           ;; Turn on auto-fill minor mode.
 ;;           (lambda () (auto-fill-mode 1)))
 
+(add-hook 'tuareg-mode-hook
+          ;; Turn on auto-fill minor mode.
+          (lambda () (auto-fill-mode 1)))
+
+(remove-hook 'prog-mode 'flycheck-mode)
+
+(require 'package)
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/") t)
+
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+
+
+(setq flycheck-disable-checkers '(make))
 
 ;; Hardcode shell to /bin/sh. Fixes problem with rgrep etc. when fish is used as shell.
 (setq shell-file-name "/bin/sh")
