@@ -132,8 +132,8 @@
 ;;
 ;; Other variables
 ;; 
-(setq mac-option-modifier 'none)
-(setq ns-command-modifier 'meta)
+;;(setq mac-option-modifier 'none)
+;;(setq ns-command-modifier 'meta)
 (setq inhibit-startup-message t)
 (setq require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -755,8 +755,8 @@
 (setq gdb-create-source-file-list nil)
 
 ;; Consider
-;; (setq mac-command-modifier 'meta)
-;; (setq mac-option-modifier 'super)
+(setq mac-command-modifier 'meta)
+;;(setq mac-option-modifier 'super)
 ;;
 ;; Load own packages:
 ;; (prelude-require-packages '(some-package some-other-package))
