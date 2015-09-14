@@ -77,7 +77,7 @@
 ;; org-mode
 ;;
 (require 'org-install)
-(require 'org-latex)
+;;(require 'org-latex)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
@@ -474,9 +474,10 @@
 
 (global-set-key '[S-f7]  'compile)
 (global-set-key '[C-f7] 'kill-compilation)
+(global-set-key '[M-f7] 'recompile)
 
- ; Make Emacs use "newline-and-indent" when you hit the Enter key so
- ; that you don't need to keep using TAB to align yourself when coding.
+                                        ; Make Emacs use "newline-and-indent" when you hit the Enter key so
+                                        ; that you don't need to keep using TAB to align yourself when coding.
 (global-set-key "\C-m"        'newline-and-indent)
 
  ; capitalize current word (for example, C constants)
@@ -790,17 +791,6 @@
 
 (remove-hook 'prog-mode 'flycheck-mode)
 
-(require 'package)
-(add-to-list 'package-archives
-             '("org" . "http://orgmode.org/elpa/") t)
-
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
-
-;;(add-to-list 'package-archives
-;;             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
-
-
 (setq flycheck-disable-checkers '(make))
 ;;(autoload 'octave-mode "octave-mod" nil t)
 ;;(setq auto-mode-alist
@@ -983,10 +973,16 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 
-
 (setq flycheck-disable-checkers '(make))
 
 ;; Hardcode shell to /bin/sh. Fixes problem with rgrep etc. when fish is used as shell.
 (setq shell-file-name "/bin/sh")
 
 (sml/setup)
+
+(ignore-errors
+  (require 'ansi-color)
+  (defun my-colorize-compilation-buffer ()
+    (when (eq major-mode 'compilation-mode)
+      (ansi-color-apply-on-region compilation-filter-start (point-max))))
+  (add-hook 'compilation-filter-hook 'my-colorize-compilation-buffer))
