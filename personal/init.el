@@ -960,10 +960,10 @@
 ;;           ;; Turn on auto-fill minor mode.
 ;;           (lambda () (auto-fill-mode 1)))
 
-(add-hook 'tuareg-mode-hook
-          ;; Turn on auto-fill minor mode.
-          (lambda () (auto-fill-mode 1)))
-
+;; (add-hook 'tuareg-mode-hook
+;;           ;; Turn on auto-fill minor mode.
+;;           (lambda () (auto-fill-mode 1)))
+;;
 (remove-hook 'prog-mode 'flycheck-mode)
 
 (require 'package)
