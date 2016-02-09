@@ -1032,4 +1032,3 @@
       (append
        '(("\\.tikz\\'" . latex-mode))
        auto-mode-alist))
->>>>>>> master
