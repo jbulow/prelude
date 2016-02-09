@@ -132,8 +132,9 @@
 ;;
 ;; Other variables
 ;;
-;;(setq mac-option-modifier 'none)
-;;(setq ns-command-modifier 'meta)
+(when (memq window-system '(mac ns))
+  (setq mac-option-modifier 'none)
+  (setq ns-command-modifier 'meta))
 (setq inhibit-startup-message t)
 (setq require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
