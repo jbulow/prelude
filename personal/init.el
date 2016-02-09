@@ -214,24 +214,24 @@
 ;;
 ;; Hippie-expand
 ;;
-(require 'hippie-exp)
+;;(require 'hippie-exp)
 
-(defun try-complete-abbrev (old)
-  (if (expand-abbrev) t nil))
+;; (defun try-complete-abbrev (old)
+;;   (if (expand-abbrev) t nil))
 
 ;; (setq hippie-expand-try-functions-list
 ;;       '(try-complete-abbrev
 ;;         try-complete-file-name
 ;;         try-expand-dabbrev))
 
-(setq hippie-expand-try-functions-list
-      '(yas/hippie-try-expand
-        try-expand-dabbrev
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-complete-file-name
-        try-complete-lisp-symbol))
-
+;; (setq hippie-expand-try-functions-list
+;;       '(yas/hippie-try-expand
+;;         try-expand-dabbrev
+;;         try-expand-dabbrev-all-buffers
+;;         try-expand-dabbrev-from-kill
+;;         try-complete-file-name
+;;         try-complete-lisp-symbol))
+;; 
 
 ;; ----------------------------------------------------------- [ ibuffer ]
 ;; *Nice* buffer switching
@@ -971,7 +971,10 @@
              '("org" . "http://orgmode.org/elpa/") t)
 
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
 
 (setq flycheck-disable-checkers '(make))
 
@@ -1003,3 +1006,31 @@
 ;; (require 'prelude-helm-everywhere)
 
 (ido-mode)
+
+;; https://www.reddit.com/r/emacs/comments/3ricev/tip_for_when_you_are_running_out_of_easytopress/
+;; https://www.reddit.com/r/emacs/comments/3rd0x8/tips_for_going_full_emacs_after_spacemacs/
+;;
+;; https://www.reddit.com/r/emacs/comments/3s4k03/how_many_packages_do_you_use/
+;; https://www.reddit.com/r/emacs/comments/3r8fql/is_there_spacemacs_key_binding_sheetchart/
+;;
+;; https://www.reddit.com/r/emacs/comments/3rxfr5/xclip_copypaste_killyank_and_emacs_in_a_terminal/
+;; https://www.reddit.com/r/emacs/comments/3s0hjo/how_to_get_an_arglist_like_editing_using_emacs/
+;; https://www.reddit.com/r/emacs/comments/3rom3t/tutorial_for_how_to_make_ido_or_helm_menu/
+;; https://www.reddit.com/r/emacs/comments/3rqvwn/autocompletion_for_c_with_external_library/
+;; https://www.reddit.com/r/emacs/comments/3rqvwn/autocompletion_for_c_with_external_library/
+;; https://www.reddit.com/r/emacs/comments/3rjt3p/webmodeel_v13_is_released/
+;; https://www.reddit.com/r/emacs/comments/3r9fic/best_practicestip_for_companymode_andor_yasnippet/
+;; http://www.mostlymaths.net/2015/11/synctex-and-pdf-view-mode-for-emacs.html
+;; http://oremacs.com/2015/04/16/ivy-mode/
+;; https://www.reddit.com/r/emacs/comments/331gqp/introducing_ivymode_or_emacs/
+;; 
+
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-omnisharp))
+
+(setq auto-mode-alist
+      (append
+       '(("\\.tikz\\'" . latex-mode))
+       auto-mode-alist))
