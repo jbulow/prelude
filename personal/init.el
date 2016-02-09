@@ -76,24 +76,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
 ;;
-;; (require 'org-install)
-;; (require 'org-latex)
-;; (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-;; (global-set-key "\C-cl" 'org-store-link)
-;; (global-set-key "\C-cc" 'org-capture)
-;; (global-set-key "\C-ca" 'org-agenda)
-;; (global-set-key "\C-cb" 'org-iswitchb)
-;; (global-font-lock-mode 1)                     ; for all buffers
-;; (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
-;; 
-;; ;; Set to the location of your Org files on your local system
-;; (setq org-directory "~/org")
-;; 
-;; ;; Set to the name of the file where new notes will be stored
-;; (setq org-mobile-inbox-for-pull "~/org/flagged.org")
-;; 
-;; ;; Set to <your Dropbox root directory>/MobileOrg.
-;; (setq org-mobile-directory "~/Dropbox/MobileOrg")
+(require 'org-install)
+;;(require 'org-latex)
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-font-lock-mode 1)                     ; for all buffers
+(add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
+
+;; Set to the location of your Org files on your local system
+(setq org-directory "~/org")
+
+;; Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+
+;; Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
 
 
 
@@ -215,24 +215,24 @@
 ;;
 ;; Hippie-expand
 ;;
-(require 'hippie-exp)
+;;(require 'hippie-exp)
 
-(defun try-complete-abbrev (old)
-  (if (expand-abbrev) t nil))
+;; (defun try-complete-abbrev (old)
+;;   (if (expand-abbrev) t nil))
 
 ;; (setq hippie-expand-try-functions-list
 ;;       '(try-complete-abbrev
 ;;         try-complete-file-name
 ;;         try-expand-dabbrev))
 
-(setq hippie-expand-try-functions-list
-      '(yas/hippie-try-expand
-        try-expand-dabbrev
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-complete-file-name
-        try-complete-lisp-symbol))
-
+;; (setq hippie-expand-try-functions-list
+;;       '(yas/hippie-try-expand
+;;         try-expand-dabbrev
+;;         try-expand-dabbrev-all-buffers
+;;         try-expand-dabbrev-from-kill
+;;         try-complete-file-name
+;;         try-complete-lisp-symbol))
+;; 
 
 ;; ----------------------------------------------------------- [ ibuffer ]
 ;; *Nice* buffer switching
@@ -553,7 +553,7 @@
 
 ;; (autoload 'company-mode "company" nil t)
 ;; (put 'downcase-region 'disabled nil)
-;;
+;; 
 
 
 ;;  When activated, it allows to “undo” (and “redo”) changes in the
@@ -767,7 +767,7 @@
 ;; ido: add this in case of slow performance
 ;; (setq flx-ido-threshhold 1000)
 ;;
-;;
+;; 
 
 (setq python-shell-interpreter "python3.3")
 
@@ -802,7 +802,7 @@
 ;; (eval-after-load "tuareg"
 ;;   (let ((opamdir (car (split-string (shell-command-to-string "opam config var prefix")))))
 ;;     (load-file (concat opamdir "/share/emacs/site-lisp/ocp-indent.el"))))
-;;
+;; 
 ;; (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 ;; (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 ;; (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
@@ -812,30 +812,30 @@
 
 ;; (require 'cl)
 ;; (require 'utop)
-;;
+;; 
 ;; (defconst init-file-name "toplevel.init")
-;;
+;; 
 ;; (defconst build-dir-name "_build")
-;;
+;; 
 ;; (defun upward-find-file (filename &optional startdir)
 ;;   "Move up directories until we find a certain filename. If we
 ;;   manage to find it, return the containing directory. Else if we
 ;;   get to the toplevel directory and still can't find it, return
 ;;   nil. Start at startdir or . if startdir not given"
-;;
+;; 
 ;;   (let ((dirname (expand-file-name
 ;;                   (if startdir startdir ".")))
 ;;         (found nil) ; found is set as a flag to leave loop if we find it
 ;;         (top nil))  ; top is set when we get
 ;;                     ; to / so that we only check it once
-;;
+;; 
 ;;     ; While we've neither been at the top last time nor have we found
 ;;     ; the file.
 ;;     (while (not (or found top))
 ;;       ; If we're at / set top flag.
 ;;       (if (string= (expand-file-name dirname) "/")
 ;;           (setq top t))
-;;
+;; 
 ;;       ; Check for the file
 ;;       (if (file-exists-p (expand-file-name filename dirname))
 ;;           (setq found t)
@@ -843,7 +843,7 @@
 ;;         (setq dirname (expand-file-name ".." dirname))))
 ;;     ; return statement
 ;;     (if found dirname nil)))
-;;
+;; 
 ;; (defun should-include-p (file)
 ;;   "A predicate for wether a given file-path is relevant for
 ;;    setting up the `include` path of utop."
@@ -851,14 +851,14 @@
 ;;         ((string= (file-name-base file) "..") nil)
 ;;         ((string-match ".*\.dSYM" file) nil)
 ;;         ((file-directory-p file) t)))
-;;
+;; 
 ;; (defun ls (dir)
 ;;   "Returns directory contents. Only includes folders that
 ;;    are relevant for utop"
 ;;   (if (should-include-p dir)
 ;;       (remove-if-not 'should-include-p (directory-files dir t))
 ;;     nil))
-;;
+;; 
 ;; (defun ls-r (dir)
 ;;   "Returns directory contents, decending into subfolders
 ;;    recursively. Only returns folders that are relevant for utop "
@@ -870,7 +870,7 @@
 ;;           (tail-rec flattened (append result folders)))
 ;;       result))
 ;;   (tail-rec (list dir) nil))
-;;
+;; 
 ;; (defun utop-invocation (&optional startdir)
 ;;   "Generates an appropriately initialized utop buffer."
 ;;   (interactive)
@@ -894,77 +894,77 @@
 ;;         (pop-to-buffer buf)
 ;;         (with-current-buffer buf (utop-mode))))
 ;;       buf)))
-;;
+;; 
 ;; ;; Improved ocaml support
 ;; ;; From: https://github.com/mads379/.emacs.d/blob/master/languages.el#L18
-;;
+;; 
 ;; (after `tuareg
 ;;   (message "OCaml has been loaded")
-;;
+;; 
 ;;   (defun make-cmd ()
 ;;     (concat "make -w -j4 -C " (or (upward-find-file "Makefile") ".")))
-;;
+;; 
 ;;   ;; Add OPAM installed elisp files to the load-path.
 ;;   (push
 ;;    (concat (substring (shell-command-to-string "opam config var share") 0 -1)
 ;;            "/emacs/site-lisp") load-path)
-;;
+;; 
 ;;   ;; Setup environment variables using OPAM
 ;;   (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
 ;;     (setenv (car var) (cadr var)))
-;;
+;; 
 ;;   ;; One of the `opam config env` variables is PATH. Update `exec-path` to that.
 ;;   (setq exec-path (split-string (getenv "PATH") path-separator))
-;;
+;; 
 ;;   ;; Tell merlin where to find the executable.
 ;;   (setq merlin-command
 ;;         (concat (substring (shell-command-to-string "opam config var bin") 0 -1)
 ;;                 "/ocamlmerlin"))
-;;
+;; 
 ;;   ;; merlin-mode is provided in merlin.el on the load-path.
 ;;   (autoload 'merlin-mode "merlin" "Merlin mode" t)
-;;
+;; 
 ;;   ;; Automatically load utop.el and make it the default toplevel.
 ;;   (autoload 'utop "utop" "Toplevel for OCaml" t)
 ;;   (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;;
+;; 
 ;;   (add-hook 'tuareg-mode-hook
 ;;             (lambda ()
-;;
+;; 
 ;;               (merlin-mode)
 ;;               (utop-setup-ocaml-buffer)
-;;
+;; 
 ;;               ;; Better default make command for OCaml projects.
 ;;               (set (make-local-variable 'compile-command) (make-cmd))
-;;
+;; 
 ;;               (define-key merlin-mode-map (kbd "M-<tab>") 'merlin-try-completion)
 ;;               (define-key merlin-mode-map "\M-." 'merlin-locate)
 ;;               (define-key merlin-mode-map "\M->" 'merlin-pop-stack)
 ;;               (define-key merlin-mode-map (kbd "C-c C-p") 'prev-match)
 ;;               (define-key merlin-mode-map (kbd "C-c C-n") 'next-match)
 ;;               (define-key tuareg-mode-map (kbd "C-x C-r") 'tuareg-eval-region))))
-;;
+;; 
 ;;
 ;; tureg config
 ;;
 
 ;; ;; Indent `=' like a standard keyword.
 ;; (setq tuareg-lazy-= t)
-;;
+;; 
 ;; ;; Indent [({ like standard keywords.
 ;; (setq tuareg-lazy-paren t)
-;;
+;; 
 ;; ;; No indentation after `in' keywords.
 ;; (setq tuareg-in-indent 0)
-;;
+;; 
 ;; (add-hook 'tuareg-mode-hook
 ;;           ;; Turn on auto-fill minor mode.
 ;;           (lambda () (auto-fill-mode 1)))
 
-;; (add-hook 'tuareg-mode-hook
-;;           ;; Turn on auto-fill minor mode.
-;;           (lambda () (auto-fill-mode 1)))
-;;
+(add-hook 'tuareg-mode-hook
+          ;; Turn on auto-fill minor mode.
+          (lambda () (auto-fill-mode 1)))
+
 (remove-hook 'prog-mode 'flycheck-mode)
 
 (require 'package)
@@ -972,7 +972,10 @@
              '("org" . "http://orgmode.org/elpa/") t)
 
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
 
 (setq flycheck-disable-checkers '(make))
 
@@ -1003,5 +1006,27 @@
 
 ;; (require 'prelude-helm-everywhere)
 
-;; Do not enable ido-mode as it will actually disable it when already enabled from prelude-ido.
-;; (ido-mode)
+(ido-mode)
+
+;; https://www.reddit.com/r/emacs/comments/3ricev/tip_for_when_you_are_running_out_of_easytopress/
+;; https://www.reddit.com/r/emacs/comments/3rd0x8/tips_for_going_full_emacs_after_spacemacs/
+;;
+;; https://www.reddit.com/r/emacs/comments/3s4k03/how_many_packages_do_you_use/
+;; https://www.reddit.com/r/emacs/comments/3r8fql/is_there_spacemacs_key_binding_sheetchart/
+;;
+;; https://www.reddit.com/r/emacs/comments/3rxfr5/xclip_copypaste_killyank_and_emacs_in_a_terminal/
+;; https://www.reddit.com/r/emacs/comments/3s0hjo/how_to_get_an_arglist_like_editing_using_emacs/
+;; https://www.reddit.com/r/emacs/comments/3rom3t/tutorial_for_how_to_make_ido_or_helm_menu/
+;; https://www.reddit.com/r/emacs/comments/3rqvwn/autocompletion_for_c_with_external_library/
+;; https://www.reddit.com/r/emacs/comments/3rqvwn/autocompletion_for_c_with_external_library/
+;; https://www.reddit.com/r/emacs/comments/3rjt3p/webmodeel_v13_is_released/
+;; https://www.reddit.com/r/emacs/comments/3r9fic/best_practicestip_for_companymode_andor_yasnippet/
+;; http://www.mostlymaths.net/2015/11/synctex-and-pdf-view-mode-for-emacs.html
+;; http://oremacs.com/2015/04/16/ivy-mode/
+;; https://www.reddit.com/r/emacs/comments/331gqp/introducing_ivymode_or_emacs/
+;; 
+
+(setq auto-mode-alist
+      (append
+       '(("\\.tikz\\'" . latex-mode))
+       auto-mode-alist))
