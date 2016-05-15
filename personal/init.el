@@ -65,6 +65,11 @@
             (turn-off-smartparens-mode)
             (turn-off-show-smartparens-mode)))
 
+(add-hook 'prelude-latex-mode-hook
+          (lambda ()
+            (turn-off-smartparens-mode)
+            (turn-off-show-smartparens-mode)))
+
 
 ;; whitespace-mode
 ;;(setq prelude-whitespace nil)
