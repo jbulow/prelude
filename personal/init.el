@@ -1033,3 +1033,6 @@
       (append
        '(("\\.tikz\\'" . latex-mode))
        auto-mode-alist))
+
+;; overwrite selected text
+(delete-selection-mode t)
