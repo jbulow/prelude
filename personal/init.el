@@ -1005,8 +1005,6 @@
 
 ;; (require 'prelude-helm-everywhere)
 
-(ido-mode)
-
 ;; https://www.reddit.com/r/emacs/comments/3ricev/tip_for_when_you_are_running_out_of_easytopress/
 ;; https://www.reddit.com/r/emacs/comments/3rd0x8/tips_for_going_full_emacs_after_spacemacs/
 ;;
@@ -1034,3 +1032,4 @@
       (append
        '(("\\.tikz\\'" . latex-mode))
        auto-mode-alist))
+>>>>>>> master
