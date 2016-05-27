@@ -1032,3 +1032,22 @@
       (append
        '(("\\.tikz\\'" . latex-mode))
        auto-mode-alist))
+
+;; (global-unset-key "\C-z")
+;; (global-unset-key "\C-x\C-z")
+;; (put 'suspend-frame 'disabled t)
+(global-unset-key (kbd "C-z"))
+
+
+;;(set 'pop-up-frames 'graphic-only)
+(set 'gdb-use-separate-io-buffer nil)
+(set 'gdb-many-windows nil)
+(set 'org-agenda-window-setup 'other-frame)
+(set 'org-src-window-setup 'other-frame)
+;; Focus follows mouse off to prevent crazy things happening when I click on
+;; e.g. compilation error links.
+(set 'mouse-autoselect-window nil)
+(set 'focus-follows-mouse nil)
+;; kill frames when a buffer is buried, makes most things play nice with
+;; frames
+;;(set 'frame-auto-hide-function 'delete-frame)
