@@ -1051,3 +1051,4 @@
 ;; kill frames when a buffer is buried, makes most things play nice with
 ;; frames
 ;;(set 'frame-auto-hide-function 'delete-frame)
+(set-face-attribute 'default nil :height 160)
