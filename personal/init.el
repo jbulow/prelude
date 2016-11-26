@@ -5,6 +5,7 @@
                        ((eq system-type 'cygwin) "~/")
                        ((eq system-type 'gnu/linux) "~/")
                        ((eq system-type 'windows-nt) "~/")
+                       ((eq system-type 'berkeley-unix) "~/")
                        ;;                       ((eq system-type 'windows-nt) (concat "c:/Users/" user-login-name))
                        "My home directory"))
 
@@ -16,6 +17,7 @@
                           ((eq system-type 'cygwin) "~/")
                           ((eq system-type 'gnu/linux) "~/Dropbox/")
                           ((eq system-type 'windows-nt) "~/../../Dropbox/")
+                          ((eq system-type 'berkeley-unix) "~/Dropbox")
                           "My Dropbox directory"))
 
 ;; http://milkbox.net/note/single-file-master-emacs-configuration/
@@ -203,7 +205,7 @@
 ;; (yas/initialize)
 ;; (yas/load-directory (concat emacs-root "yasnippet-0.6.1c/snippets"))
 
-(require 'dropdown-list)
+;; FB (require 'dropdown-list)
 (setq yas/prompt-functions
       '(yas/dropdown-prompt
         yas/ido-prompt

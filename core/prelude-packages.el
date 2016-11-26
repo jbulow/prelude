@@ -60,7 +60,7 @@
     git-timemachine
     gitconfig-mode
     gitignore-mode
-    god-mode
+    ;; god-mode
     grizzl
     guru-mode
     imenu-anywhere
