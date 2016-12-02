@@ -214,24 +214,24 @@
 ;;
 ;; Hippie-expand
 ;;
-;;(require 'hippie-exp)
+(require 'hippie-exp)
 
-;; (defun try-complete-abbrev (old)
-;;   (if (expand-abbrev) t nil))
+(defun try-complete-abbrev (old)
+  (if (expand-abbrev) t nil))
 
 ;; (setq hippie-expand-try-functions-list
 ;;       '(try-complete-abbrev
 ;;         try-complete-file-name
 ;;         try-expand-dabbrev))
 
-;; (setq hippie-expand-try-functions-list
-;;       '(yas/hippie-try-expand
-;;         try-expand-dabbrev
-;;         try-expand-dabbrev-all-buffers
-;;         try-expand-dabbrev-from-kill
-;;         try-complete-file-name
-;;         try-complete-lisp-symbol))
-;; 
+(setq hippie-expand-try-functions-list
+      '(yas/hippie-try-expand
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name
+        try-complete-lisp-symbol))
+
 
 ;; ----------------------------------------------------------- [ ibuffer ]
 ;; *Nice* buffer switching
@@ -476,8 +476,8 @@
 (global-set-key '[C-f7] 'kill-compilation)
 (global-set-key '[M-f7] 'recompile)
 
-                                        ; Make Emacs use "newline-and-indent" when you hit the Enter key so
-                                        ; that you don't need to keep using TAB to align yourself when coding.
+ ; Make Emacs use "newline-and-indent" when you hit the Enter key so
+ ; that you don't need to keep using TAB to align yourself when coding.
 (global-set-key "\C-m"        'newline-and-indent)
 
  ; capitalize current word (for example, C constants)
@@ -755,8 +755,8 @@
 (setq gdb-create-source-file-list nil)
 
 ;; Consider
-(setq mac-command-modifier 'meta)
-;;(setq mac-option-modifier 'super)
+;; (setq mac-command-modifier 'meta)
+;; (setq mac-option-modifier 'super)
 ;;
 ;; Load own packages:
 ;; (prelude-require-packages '(some-package some-other-package))
@@ -767,6 +767,8 @@
 ;; (setq flx-ido-threshhold 1000)
 ;;
 ;; 
+
+(setq flycheck-disable-checkers '(make))
 
 (setq python-shell-interpreter "python3.3")
 
@@ -788,23 +790,21 @@
 ;; (autoload 'octave-mode "octave-mod" nil t)
 ;; (setq auto-mode-alist
 ;;       (cons '("\\.m$" . octave-mode) auto-mode-alist))
-
 (remove-hook 'prog-mode 'flycheck-mode)
 
-(setq flycheck-disable-checkers '(make))
-;;(autoload 'octave-mode "octave-mod" nil t)
-;;(setq auto-mode-alist
-;;      (cons '("\\.m$" . octave-mode) auto-mode-alist))
-
-;; OCaml stuff
 ;; Use ocp-indent to indent instead of Tuareg's default
-;; (eval-after-load "tuareg"
-;;   (let ((opamdir (car (split-string (shell-command-to-string "opam config var prefix")))))
-;;     (load-file (concat opamdir "/share/emacs/site-lisp/ocp-indent.el"))))
-;; 
-;; (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;; (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-;; (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+(eval-after-load "tuareg"
+  (let ((opamdir (car (split-string (shell-command-to-string "opam config var prefix")))))
+    (load-file (concat opamdir "/share/emacs/site-lisp/ocp-indent.el"))))
+(require 'package)
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/") t)
+
+;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+;;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 
 ;; Impoved utop: loading packages in use
 ;; from http://mads379.github.io/ocaml/2014/01/05/using-utop-in-emacs.html
@@ -1053,56 +1053,10 @@
 ;;(set 'frame-auto-hide-function 'delete-frame)
 (set-face-attribute 'default nil :height 160)
 
-
-(setq user-mail-address "sesa152652@schneider-electric.com")
-(setq user-full-name "Jonas Bülow")
-
-(setq gnus-select-method '(nnnil))
-
-(setq gnus-secondary-select-methods '((nntp "news.gwene.org")))
-
-(add-to-list 'gnus-secondary-select-methods
-             '(nnimap "ferguson"
-                      (nnimap-address "outlook.office365.com")
-                      (nnimap-server-port 993)
-                      (nnimap-stream ssl)))
-
-
                                         ; You need install the ClI brower 'w3m' and Emacs plugin 'w3m'
 (setq mm-text-html-renderer 'w3m)
 
-(setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 465 nil nil))
-      smtpmail-auth-credentials '(("smtp.gmail.com" 465 "jeff@jeffsigmon.com" nil))
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 465
-      smtpmail-stream-type 'ssl
-      smtpmail-local-domain "homepc")
-
-
-
-;; display chars
-(setq gnus-score-over-mark ?\u2191          ; \u2191 \u2600
-      gnus-score-below-mark ?\u2193         ; \u2193 \u2602
-      gnus-ticked-mark ?\u2691
-      gnus-dormant-mark ?\u2690
-      gnus-expirable-mark ?\u267b
-      gnus-read-mark ?\u2713
-      gnus-del-mark ?\u2717
-      gnus-killed-mark ?\u2620
-      gnus-replied-mark ?\u27f2
-      gnus-forwarded-mark ?\u2933
-      gnus-cached-mark ?\u260d
-      gnus-recent-mark ?\u2605
-      gnus-unseen-mark ?\u2729
-      gnus-unread-mark ?\u2709
-      gnus-summary-line-format (concat "%{|%}"
-                                       "%U%R%z"
-                                       "%{|%}"
-                                       "%(%-18,18f"
-                                       "%{|%}"
-                                       "%*%{%B%} %s%)"
-                                       "\n"))
-
 (setq gnuplot-program "/home/jonasbu/local/bin/gnuplot")
+
+(add-to-list 'load-path "~/.emacs.d/personal/")
+(require 'ox-mediawiki)
