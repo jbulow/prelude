@@ -1,5 +1,4 @@
 ; -*- mode: Lisp; tab-width: 2; -*-
-
 ;;; Packages required:
 ;;    etags-select
 ;;    dropdown-list
@@ -7,7 +6,6 @@
 ;;    google-c-style
 ;;    clang-format
 ;;    find-things-fast
-
 ;;; Emacs Load Path
 
 (defvar home-dir (cond ((eq system-type 'darwin) "~/")
@@ -805,6 +803,7 @@
 ;;
 
 ;; Add the opam lisp dir to the emacs load path
+
 ;; (add-to-list
 ;;  'load-path
 ;;  (replace-regexp-in-string
