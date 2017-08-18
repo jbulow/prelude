@@ -1,11 +1,6 @@
 ; -*- mode: Lisp; tab-width: 2; -*-
 ;;; Emacs Load Path
 
-(setq home-dir "~/")
-
-(when (eq system-type 'windows-nt)
-  (setq default-directory home-dir))
-
 ;; http://milkbox.net/note/single-file-master-emacs-configuration/
 (defmacro after (mode &rest body)
   "`eval-after-load' MODE evaluate BODY."
@@ -22,10 +17,8 @@
 ;; guru
 
 (defun disable-guru-mode ()
-  (guru-mode -1)
-  )
+  (guru-mode -1))
 (add-hook 'prelude-prog-mode-hook 'disable-guru-mode t)
-
 
 ;; smartparen
 (add-hook 'prelude-prog-mode-hook 
@@ -33,15 +26,10 @@
             (turn-off-smartparens-mode)
             (turn-off-show-smartparens-mode))) 
 
-
-;; whitespace-mode
-;;(setq prelude-whitespace nil)
-;; (setq prelude-clean-whitespace-on-save nil)
-
-;; Turn of whitespace mode.
+;; Turn off whitespace mode.
 (setq prelude-whitespace nil)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; org-mode
 ;;
 (require 'org-install)
@@ -63,19 +51,12 @@
 ;; Set to <your Dropbox root directory>/MobileOrg.
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 
-
-
-
-
-
 ;;
 ;; etags related
 ;;
-
 (require 'etags-select)
 (global-set-key "\M-?" 'etags-select-find-tag-at-point)
 (global-set-key "\M-." 'etags-select-find-tag)
-
 
 ;; Ido stuff
 (defun ido-find-file-in-tag-files ()
@@ -90,30 +71,27 @@
 
 (global-set-key [f9] 'ido-find-file-in-tag-files)
 
-
 ;; Display ido results vertically, rather than horizontally
 (setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
 (defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
 (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
-
 
 ;;
 ;; Other variables
 ;; 
 ;;(setq mac-option-modifier 'none)
 ;;(setq ns-command-modifier 'meta)
-(setq inhibit-startup-message t)
-(setq require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq-default indent-tabs-mode nil)
-(transient-mark-mode t)
-(setq query-replace-highlight t)
-(setq default-major-mode 'text-mode)
 (setq cua-enable-cua-keys nil)
+(setq default-major-mode 'text-mode)
+(setq emerge-diff-options "--ignore-all-space")
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
-(setq emerge-diff-options "--ignore-all-space")
 (setq preview-auto-cache-preamble t)
+(setq query-replace-highlight t)
+(setq require-final-newline t)
+(setq-default indent-tabs-mode nil)
+(transient-mark-mode t)
 
 ;; Moving cursor down at bottom scrolls only a single line, not half page
 (setq scroll-step 1)
@@ -124,14 +102,6 @@
 
 ;; will delete "hungrily" in C mode
 (setq c-hungry-delete-key t)
-
-;; Fonts
-;;(if (>= emacs-major-version 23)
-;;    (set-default-font "Monospace-10"))
-
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
-
 
 ;; default to better frame titles
 (setq frame-title-format
@@ -165,6 +135,14 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
 
+(require 'dropdown-list)
+(setq yas/prompt-functions
+      '(yas/dropdown-prompt
+        yas/ido-prompt
+        yas/x-prompt
+        yas/completing-prompt
+        yas/no-prompt))
+
 ;;
 ;; Hippie-expand
 ;;
@@ -173,17 +151,13 @@
 (defun try-complete-abbrev (old)
   (if (expand-abbrev) t nil))
 
-;; (setq hippie-expand-try-functions-list
-;;       '(try-complete-abbrev
-;;         try-complete-file-name
-;;         try-expand-dabbrev))
-
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill
         try-complete-file-name
         try-complete-lisp-symbol))
+
 
 ;; ----------------------------------------------------------- [ ibuffer ]
 ;; *Nice* buffer switching
@@ -239,11 +213,8 @@
 
 ;; Order the groups so the order is : [Default], [agenda], [emacs]
 (defadvice ibuffer-generate-filter-groups (after reverse-ibuffer-groups ()
-                                                 activate)
+                                            activate)
   (setq ad-return-value (nreverse ad-return-value)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;
 ;;; Pager
@@ -369,12 +340,6 @@
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 ;;
-;; tempo
-;;
-
-
-
-;;
 ;; Fast Find other File
 ;;
 
@@ -435,7 +400,6 @@
  ; capitalize current word (for example, C constants)
 (global-set-key "\M-u"        '(lambda () (interactive) (backward-word 1) (upcase-word 1)))
 
-
 ;; (add-hook 'c-mode-common-hook
 ;;           '(lambda ()
 ;;              (turn-on-auto-fill)
@@ -460,8 +424,6 @@
              ))
 
 (put 'upcase-region 'disabled nil)
-
-;;(load (concat nxml-path "rng-auto.el"))
 
 (add-to-list 'auto-mode-alist
              (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xslt" "svg" "rss" "xaml") t) "\\'")
@@ -496,7 +458,6 @@
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-hook 'lua-mode-hook 'turn-on-font-lock)
 (add-hook 'lua-mode-hook 'hs-minor-mode)
-
 
 ;;
 ;; company-mode
@@ -548,13 +509,8 @@
 ;; (global-whitespace-mode 1)
 (global-flycheck-mode nil)
 
-
-
-
-
 ;; Improve zap-to-char (M-z) by not deleting the boundary character
 ;; I.e zap-to-char '>' on <Xabcdef> (cursor on X) gives <>.
-
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
   "Kill up to the ARG'th occurence of CHAR, and leave CHAR.
   The CHAR is replaced and the point is put before CHAR."
@@ -689,20 +645,6 @@
 (load "server")
 (unless (server-running-p) (server-start))
 
-
-
-;;
-;; web
-;;
-
-;; (load "/home/jonasbu/emacs/nxhtml/autostart.el")
-
-;; (when (and (equal emacs-major-version 24)
-;;            (equal emacs-minor-version 3))
-;;   (eval-after-load "mumamo"
-;;     '(setq mumamo-per-buffer-local-vars
-;;            (delq 'buffer-file-name mumamo-per-buffer-local-vars))))
-
 ;; gdb mode does not work well with large c++ executables withour this
 (setq gdb-create-source-file-list nil)
 
@@ -730,8 +672,7 @@
 (add-hook 'c++-mode-hook 'my-c-mode-hook)
 
 (defun disable-smartparens ()
-  (smartparens-mode 0)
-  )
+  (smartparens-mode 0))
 
 (add-hook 'c-mode-common-hook 'disable-smartparens)
 
@@ -744,22 +685,7 @@
 ;;       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (remove-hook 'prog-mode 'flycheck-mode)
 
-
 (remove-hook 'prog-mode 'flycheck-mode)
-
-(require 'package)
-;;(add-to-list 'package-archives
-;;             '("org" . "http://orgmode.org/elpa/") t)
-
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-
-(require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
 
 (setq flycheck-disable-checkers '(make))
 
@@ -808,11 +734,6 @@
 ;; https://www.reddit.com/r/emacs/comments/331gqp/introducing_ivymode_or_emacs/
 ;; 
 
-(add-hook 'csharp-mode-hook 'omnisharp-mode)
-
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-omnisharp))
-
 (setq auto-mode-alist
       (append
        '(("\\.tikz\\'" . latex-mode))
@@ -822,7 +743,6 @@
 ;; (global-unset-key "\C-x\C-z")
 ;; (put 'suspend-frame 'disabled t)
 (global-unset-key (kbd "C-z"))
-
 
 ;;(set 'pop-up-frames 'graphic-only)
 (set 'gdb-use-separate-io-buffer nil)
@@ -836,12 +756,8 @@
 ;; kill frames when a buffer is buried, makes most things play nice with
 ;; frames
 ;;(set 'frame-auto-hide-function 'delete-frame)
-(set-face-attribute 'default nil :height 160)
 
-                                        ; You need install the ClI brower 'w3m' and Emacs plugin 'w3m'
+ ; You need install the ClI brower 'w3m' and Emacs plugin 'w3m'
 (setq mm-text-html-renderer 'w3m)
 
 (setq gnuplot-program "/home/jonasbu/local/bin/gnuplot")
-
-(add-to-list 'load-path "~/.emacs.d/personal/")
-;; (require 'ox-mediawiki)
