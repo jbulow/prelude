@@ -225,8 +225,7 @@
 ;;         try-expand-dabbrev))
 
 (setq hippie-expand-try-functions-list
-      '(yas/hippie-try-expand
-        try-expand-dabbrev
+      '(try-expand-dabbrev
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill
         try-complete-file-name
@@ -797,29 +796,29 @@
 ;;
 
 ;; Add the opam lisp dir to the emacs load path
-(add-to-list
- 'load-path
- (replace-regexp-in-string
-  "\n" "/share/emacs/site-lisp"
-  (shell-command-to-string "opam config var prefix")))
-
-;; Automatically load utop.el
-(autoload 'utop "utop" "Toplevel for OCaml" t)
-
-;; Use the opam installed utop
-(setq utop-command "opam config exec -- utop -emacs")
-
-(autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-(add-hook 'tuareg-mode-hook 'utop-minor-mode)
-
-;; Use ocp-indent to indent instead of Tuareg's default
-(eval-after-load "tuareg"
-  (let ((opamdir (car (split-string (shell-command-to-string "opam config var prefix")))))
-    (load-file (concat opamdir "/share/emacs/site-lisp/ocp-indent.el"))))
-
-(autoload 'merlin-mode "merlin" "Merlin mode" t)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'caml-mode-hook 'merlin-mode)
+;; (add-to-list
+;;  'load-path
+;;  (replace-regexp-in-string
+;;   "\n" "/share/emacs/site-lisp"
+;;   (shell-command-to-string "opam config var prefix")))
+;; 
+;; ;; Automatically load utop.el
+;; (autoload 'utop "utop" "Toplevel for OCaml" t)
+;; 
+;; ;; Use the opam installed utop
+;; (setq utop-command "opam config exec -- utop -emacs")
+;; 
+;; (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+;; (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+;; 
+;; ;; Use ocp-indent to indent instead of Tuareg's default
+;; (eval-after-load "tuareg"
+;;   (let ((opamdir (car (split-string (shell-command-to-string "opam config var prefix")))))
+;;     (load-file (concat opamdir "/share/emacs/site-lisp/ocp-indent.el"))))
+;; 
+;; (autoload 'merlin-mode "merlin" "Merlin mode" t)
+;; (add-hook 'tuareg-mode-hook 'merlin-mode)
+;; (add-hook 'caml-mode-hook 'merlin-mode)
 
 ;; Impoved utop: loading packages in use
 ;; from http://mads379.github.io/ocaml/2014/01/05/using-utop-in-emacs.html
@@ -1080,3 +1079,6 @@
 
 (add-to-list 'load-path "~/.emacs.d/personal/")
 ;; (require 'ox-mediawiki)
+
+;; (define-key global-map "\M-." 'ggtags-find-tag-dwim)
+(define-key global-map "\M-*" 'pop-tag-mark)
