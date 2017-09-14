@@ -803,7 +803,6 @@
 ;;
 
 ;; Add the opam lisp dir to the emacs load path
-
 ;; (add-to-list
 ;;  'load-path
 ;;  (replace-regexp-in-string
