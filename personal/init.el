@@ -6,6 +6,7 @@
 ;;    google-c-style
 ;;    clang-format
 ;;    find-things-fast
+
 ;;; Emacs Load Path
 
 (defvar home-dir (cond ((eq system-type 'darwin) "~/")
