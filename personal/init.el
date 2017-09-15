@@ -1,4 +1,13 @@
 ; -*- mode: Lisp; tab-width: 2; -*-
+
+;;; Packages required:
+;;    etags-select
+;;    dropdown-list
+;;    pager
+;;    google-c-style
+;;    clang-format
+;;    find-things-fast
+
 ;;; Emacs Load Path
 
 (defvar home-dir (cond ((eq system-type 'darwin) "~/")
