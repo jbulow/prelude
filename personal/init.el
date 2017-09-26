@@ -1,6 +1,10 @@
 ; -*- mode: Lisp; tab-width: 2; -*-
 ;;; Emacs Load Path
 
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+
+
+
 (defvar home-dir (cond ((eq system-type 'darwin) "~/")
                        ((eq system-type 'cygwin) "~/")
                        ((eq system-type 'gnu/linux) "~/")
@@ -1036,3 +1040,24 @@
 
 ;; overwrite selected text
 (delete-selection-mode t)
+
+;; Set Windows-specific preferences if running in a Windows environment.
+(defun udf-windows-setup () (interactive)
+       ;; The variable `git-shell-path' contains the path to the `Git\bin'
+       ;; file on my system. I install this in
+       ;; `%USERPROFILE%\LocalAppInfo\apps\Git\bin'.
+       (setq git-shell-path
+             (concat (getenv "PROGRAMFILES") "\\Git\\bin"))
+       (setq git-shell-executable
+             (concat git-shell-path "\\bash.exe"))
+       (add-to-list 'exec-path git-shell-path)
+       (setenv "PATH"
+               (concat git-shell-path ";"
+                       (getenv "PATH")))
+       (setq explicit-shell-file-name "bash.exe")
+       (setq shell-file-name "bash.exe")
+       (message "Windows preferences set."))
+
+(if (eq system-type 'windows-nt)
+    (udf-windows-setup))
+
